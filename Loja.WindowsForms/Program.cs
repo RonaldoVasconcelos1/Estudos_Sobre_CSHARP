@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CSharpFundamentos.Capitulo.Variaveis
+namespace Loja.WindowsForms
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace CSharpFundamentos.Capitulo.Variaveis
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VariaveisForm());
+            Application.Run(new Form1());
         }
     }
 }
