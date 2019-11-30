@@ -173,7 +173,7 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "TOTAL";
             // 
-            // Form1
+            // FreteForm
             // 
             this.AcceptButton = this.Calcularbutton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,7 +193,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "FreteForm";
             this.Text = "Frete";
             this.ResumeLayout(false);
             this.PerformLayout();

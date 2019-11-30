@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Loja.WindowsForms
 {
-    class Formulario
+    internal static class Formulario
     {
         internal static bool Validar(Form formulario, ErrorProvider provedorErro)
         {
@@ -66,21 +66,35 @@ namespace Loja.WindowsForms
 
             return validacao;
         }
-        internal static void Limpar(Form bonifu)
-        {
-            foreach (Control controle in bonifu.Controls)
-            {
-                if (controle is TextBox)
-                {
-                    controle.Text = string.Empty;
-                }
-                else if(controle is ComboBox)
-                {
-                    ((ComboBox)controle).SelectedIndex = -1;
-                }
+        //internal static void Limpar(Form bonifu)
+        //{
 
+        //    foreach (Control controle in bonifu.Controls)
+        //    {
+        //        if (controle is TextBox || controle is MaskedTextBox)
+        //        {
+        //            controle.Text = string.Empty;
+        //        }
+        //        else if(controle is ComboBox)
+        //        {
+        //            ((ComboBox)controle).SelectedIndex = -1;
+        //        }
+
+        //    }
+        //}
+
+        public static void Limpar(Control controle)
+        {
+            foreach (Control obj in controle.Controls)
+            {
+                if (obj is TextBox ||
+                    obj is MaskedTextBox ||
+                    obj is ComboBox)
+                {
+                    obj.ResetText();
+                }
+                Limpar(obj);
             }
         }
-
     }
 }

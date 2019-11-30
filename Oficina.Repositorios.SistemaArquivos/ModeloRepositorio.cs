@@ -6,10 +6,15 @@ using System.Xml.Linq;
 
 namespace Oficina.Repositorios.SistemaArquivos
 {
-    public class ModeloRepositorio
+    public class ModeloRepositorio : RepositorioBase
     {
         //XDocument é uma classe para manipular Documentos
-        private XDocument ArquivoXml = XDocument.Load(ConfigurationManager.AppSettings["caminhoArquivoModelo"]);
+        private XDocument ArquivoXml;
+
+        public ModeloRepositorio () : base("caminhoArquivoModelo")
+        {
+            ArquivoXml= XDocument.Load(CaminhoArquivo);
+        }
 
         public List<Modelo> GetModeloPorMarca(int marcaId)
         {
