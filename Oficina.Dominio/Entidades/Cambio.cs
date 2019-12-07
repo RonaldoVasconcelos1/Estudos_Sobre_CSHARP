@@ -2,7 +2,7 @@
 {
     public enum Cambio
     {
-        Manuel = 1,
+        Manual = 1,
         Automatico = 2,
         PaddleShit = 3,
         Automatizado = 4,

@@ -19,7 +19,7 @@ namespace Oficina.Repositorios.SistemaArquivos.Tests
             var veiculo = new VeiculoPasseio();
 
             veiculo.Ano = 2014;
-            veiculo.Cambio = Cambio.Manuel;
+            veiculo.Cambio = Cambio.Manual;
             veiculo.Carroceria = Carroceria.Hatch;
             veiculo.Combustivel = Combustivel.Flex;
             veiculo.Observacao = "Completo";

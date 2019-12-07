@@ -1,12 +1,15 @@
 ﻿using Oficina.Dominio;
 using Oficina.Repositorios.SistemaArquivos;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Loja.WindowsForms
 {
     public partial class VeiculoForm : Form
     {
+        //construtor  metodo com o mesmo nome da classe
+        // executando automaticamente(new)
         public VeiculoForm()
         {
             InitializeComponent();
@@ -32,13 +35,32 @@ namespace Loja.WindowsForms
         }
         private void Gravarbutton_Click(object sender, EventArgs e)
         {
-            if (Formulario.Validar(this, VeiculoerrorProvider))
+            try
             {
-                GravarVeiculo();
-                MessageBox.Show("Veiculo Cadastrado com Sucesso");
-                Formulario.Limpar(this);
-                PlacaTextBox.Focus();
+
+                if (Formulario.Validar(this, VeiculoerrorProvider))
+                {
+                    GravarVeiculo();
+                    MessageBox.Show("Veiculo Cadastrado com Sucesso");
+                    Formulario.Limpar(this);
+                    PlacaTextBox.Focus();
+                }
+
             }
+            catch (FileNotFoundException excecao)
+            {
+                MessageBox.Show($"O arquivo {excecao.FileName} não foi encontrado.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show($"O Arquivo Veiculo.xml esta com o atributo somente leitura.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("EITAAAA!!! Algo deu errado e estamos trabalhando na solução");
+                //logar(ex) log4net
+            }
+
         }
         private void marcaComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -53,9 +75,13 @@ namespace Loja.WindowsForms
             ModelocomboBox.ValueMember = "Nome";
             ModelocomboBox.ValueMember = "Id";
             ModelocomboBox.SelectedIndex = -1;
+
         }
         private void GravarVeiculo()
         {
+            // atalho para blocos CTRL + K S
+
+
             var veiculo = new VeiculoPasseio();
 
             veiculo.Ano = Convert.ToInt32(AnoTextBox.Text);
@@ -68,7 +94,8 @@ namespace Loja.WindowsForms
             veiculo.Placa = PlacaTextBox.Text.ToUpper();
 
             new VeiculoRepositorio().Inserir(veiculo);
-          
+
+
         }
 
         private void Limparbutton_Click(object sender, EventArgs e)

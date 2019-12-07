@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fileNotFoundException.cs" />
     <Compile Include="VeiculoForm.cs">
       <SubType>Form</SubType>
     </Compile>
