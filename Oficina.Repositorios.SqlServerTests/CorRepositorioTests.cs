@@ -27,6 +27,8 @@ namespace Oficina.Repositorios.SqlServer.Tests
         [TestMethod()]
         public void lerTest()
         {
+            Assert.IsTrue(repositorio.ler(1).Nome == "Preto");
+                
             
             
         }
