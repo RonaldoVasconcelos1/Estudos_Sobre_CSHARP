@@ -13,14 +13,38 @@ namespace Oficina.Repositorios.SqlServer
         string stringConexao = ConfigurationManager.ConnectionStrings["oficinaSqlServer"].ConnectionString;
         public void Alterar(Cor cor)
         {
-            throw new NotImplementedException();
+            using (var conexao = new SqlConnection(stringConexao))
+            {
+                conexao.Open();
+
+                const string nomeProcedure = "CorAlterar";
+                using (var comando = new SqlCommand(nomeProcedure, conexao))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@Id", cor.Id);
+                    comando.Parameters.AddWithValue("@Nome", cor.Nome);
+                    comando.ExecuteNonQuery();
+                    // exexute reader retorna linhas e colunas
+                }
+            }
         }
 
         public void Apagar(int id)
         {
-            throw new NotImplementedException();
-        }
+            using (var conexao = new SqlConnection(stringConexao))
+            {
+                conexao.Open();
 
+                const string nomeProcedure = "CorDelete";
+                using (var comando = new SqlCommand(nomeProcedure, conexao))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@Id", id);
+                    comando.ExecuteNonQuery();
+                    // exexute reader retorna linhas e colunas
+                }
+            }
+        }
         public List<Cor> Ler()
         {
             var cores = new List<Cor>();
@@ -37,7 +61,7 @@ namespace Oficina.Repositorios.SqlServer
                     {
                         while (registros.Read())
                         {
-               
+
                             cores.Add(Mapear(registros));
                         }
                     }
@@ -54,18 +78,11 @@ namespace Oficina.Repositorios.SqlServer
             cor.Nome = registro[nameof(cor.Nome)].ToString();
 
             return cor;
-        
-        }
 
-        public void Salvar(Cor cor)
-        {
-            throw new NotImplementedException();
         }
-
         public Cor ler(int id)
         {
             Cor cor = null;
-
 
             using (var conexao = new SqlConnection(stringConexao))
             {
@@ -82,12 +99,31 @@ namespace Oficina.Repositorios.SqlServer
                         if (registros.Read())
                         {
 
-                            Mapear(registros);
+                            cor = Mapear(registros);
                         }
                     }
                 }
             }
             return cor;
         }
+        public int Salvar(Cor cor)
+        {
+            using (var conexao = new SqlConnection(stringConexao))
+            {
+                conexao.Open();
+
+                const string nomeProcedure = "CorSalvar";
+                using (var comando = new SqlCommand(nomeProcedure, conexao))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@Nome", cor.Nome);
+                    return (int)comando.ExecuteScalar();
+                    // exexute reader retorna linhas e colunas
+                }
+            }
+        }
+
+
     }
 }
+

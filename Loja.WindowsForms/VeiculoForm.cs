@@ -3,6 +3,7 @@ using Oficina.Repositorios.SistemaArquivos;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using Oficina.Repositorios.SqlServer;
 
 namespace Loja.WindowsForms
 {
@@ -22,7 +23,7 @@ namespace Loja.WindowsForms
             MarcacomboBox.ValueMember = "id";
             MarcacomboBox.SelectedIndex = -1;
 
-            CorcomboBox.DataSource = new CorRepositorio().GetCor();
+            CorcomboBox.DataSource = new Oficina.Repositorios.SqlServer.CorRepositorio().Ler();
             CorcomboBox.DisplayMember = "Nome";
             CorcomboBox.ValueMember = "id";
             CorcomboBox.SelectedIndex = -1;
@@ -55,7 +56,7 @@ namespace Loja.WindowsForms
             {
                 MessageBox.Show($"O Arquivo Veiculo.xml esta com o atributo somente leitura.");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("EITAAAA!!! Algo deu errado e estamos trabalhando na solução");
                 //logar(ex) log4net
